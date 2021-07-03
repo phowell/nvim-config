@@ -18,8 +18,7 @@ vim.cmd 'hi Normal ctermbg=NONE guibg=NONE'
 --vim.cmd 'highlight NonText ctermbg=NONE'
 
 -- Neovide
-vim.api.nvim_set_option('guifont', 'FuraCode Nerd Font,NotoSans Nerd Font Mono,Unifont:h20')
-vim.api.nvim_set_option('guifontwide', 'FuraCode Nerd Font,NotoSans Nerd Font Mono,Unifont:h20')
+vim.opt.guifont = 'FuraCode Nerd Font Mono:h18'
 vim.g.neovide_cursor_vfx_mode = "railgun"
 vim.g.neovide_transparency = 0.95
 vim.g.neovide_cursor_antialiasing= "true"
