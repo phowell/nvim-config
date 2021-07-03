@@ -2,6 +2,7 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
+
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
@@ -42,19 +43,7 @@ return require('packer').startup(function()
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
 
---[[
-    -- Trying out a new status line
-    use {'hoob3rt/lualine.nvim',
-        requires = {'devicons'},
-		config = function()
-			local lualine = require('lualine')
-			lualine.theme = 'gruvbox'
-			lualine.status()
-		end
-    }
---]]
-
-	-- Trying out Galaxyline
+	-- Galaxyline is my flavour of the month statusline
 	use {'glepnir/galaxyline.nvim',
 		branch='main',
 		requires = 'devicons'

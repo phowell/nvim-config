@@ -1,63 +1,35 @@
---[[ datwaft/bubbly.nvim
-vim.g.bubbly_palette = {
-    background = '#3c3836',
-    foreground = "#fbf1c7",
-    black = "#282828",
-    red = "#fb4934",
-    green = "#b8bb26",
-	yellow = "#fabd2f",
-	blue = "#83a598",
-	purple = "#d3869b",
-	cyan = "#8ec07c",
-	white = "#fbf1c7",
-	lightgrey = "#a89984",
- 	darkgrey = "#928374",
-}
---]]
-
---[[ lualine
---using the LSP-Status plugin
-local lsp_status = require('lsp-status')
--- lsp_status.register_progress()
-
-
-vim.api.nvim_command('set noshowmode')
-local lualine = require('lualine')
-lualine.theme = 'gruvbox'
-lualine.separator="|"
-if #vim.lsp.buf_get_clients() > 0 then
-	lualine.sections.lualine_c = {lsp_status.status()}
-end
-lualine.status()
---]]
-
 -- ----------
 -- Galaxyline
 -- ----------
+
 local gl = require('galaxyline')
 local colors = require('galaxyline.theme').default
 local condition = require('galaxyline.condition')
+
+local mode_color = {n = colors.red, i = colors.green,v=colors.blue,
+					  [''] = colors.blue,V=colors.blue,
+					  c = colors.magenta,no = colors.red,s = colors.orange,
+					  S=colors.orange,[''] = colors.orange,
+					  ic = colors.yellow,R = colors.violet,Rv = colors.violet,
+					  cv = colors.red,ce=colors.red, r = colors.cyan,
+					  rm = colors.cyan, ['r?'] = colors.cyan,
+					  ['!']  = colors.red,t = colors.red}
+
 local gls = gl.section
 gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 
 gls.left[1] = {
-  RainbowRed = {
-    provider = function() return '▊ ' end,
-    highlight = {colors.blue,colors.bg}
+  LeftBar = {
+    provider = function()
+		vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
+		return '▊ '
+	end,
+    highlight = {colors.blue,colors.bg,'bold'},
   },
 }
 gls.left[2] = {
   ViMode = {
     provider = function()
-      -- auto change color according the vim mode
-      local mode_color = {n = colors.red, i = colors.green,v=colors.blue,
-                          [''] = colors.blue,V=colors.blue,
-                          c = colors.magenta,no = colors.red,s = colors.orange,
-                          S=colors.orange,[''] = colors.orange,
-                          ic = colors.yellow,R = colors.violet,Rv = colors.violet,
-                          cv = colors.red,ce=colors.red, r = colors.cyan,
-                          rm = colors.cyan, ['r?'] = colors.cyan,
-                          ['!']  = colors.red,t = colors.red}
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
       return ' '
     end,
@@ -146,7 +118,7 @@ gls.left[12] = {
       end
       return true
     end,
-    icon = ' LSP:',
+    icon = ' ',
     highlight = {colors.cyan,colors.bg,'bold'}
   }
 }
@@ -215,8 +187,8 @@ gls.right[7] = {
 }
 
 gls.right[8] = {
-  RainbowBlue = {
-    provider = function() return ' ▊' end,
+  RightBar = {
+    provider = function() return '  ▊' end,
     highlight = {colors.blue,colors.bg}
   },
 }
